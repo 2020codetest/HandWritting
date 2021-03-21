@@ -1,18 +1,20 @@
 Function.prototype.mycall = function(context) {
     context = context ? Object(context) : window
-    context.fn = this
+    var funName = new Date().getTime()
+    context[funName] = this
     var args = [...arguments].slice(1)
-    var result = context.fn(...args)
-    delete context.fn
+    var result = context[funName](...args)
+    delete context[funName]
     return result
 }
 
 Function.prototype.myapply = function() {
     context = arguments[0]
     context = context ? Object(context) : window
-    context.fn = this
-    var result = context.fn(...arguments[1])
-    delete context.fn
+    var funName = new Date().getTime()
+    context[funName] = this
+    var result = context[funName](...arguments[1])
+    delete context[funName]
     return result
 }
 
